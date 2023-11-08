@@ -12,4 +12,15 @@ export class FirestoreService {
   {
     return this.angularFirestore.collection('especialidades').valueChanges()
   }
+
+  GuardarEspecialidad(especialidades:any)
+  {
+    const documento = this.angularFirestore.doc('especialidades/' + this.angularFirestore.createId());
+    const uid = documento.ref.id;
+
+    documento.set({
+      uid: uid,
+      nombre: especialidades
+    });
+  }
 }

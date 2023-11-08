@@ -5,7 +5,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FormAltaPacienteComponent } from './form-alta-paciente/form-alta-paciente.component';
 import { FormAltaEspecialistaComponent } from './form-alta-especialista/form-alta-especialista.component';
 import { FormAltaAdministradorComponent } from './form-alta-administrador/form-alta-administrador.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ListaEspecialidadesComponent } from './lista-especialidades/lista-especialidades.component';
 
 
 @NgModule({
@@ -13,18 +14,20 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     FormAltaPacienteComponent,
     FormAltaEspecialistaComponent,
-    FormAltaAdministradorComponent
+    FormAltaAdministradorComponent,
+    ListaEspecialidadesComponent
   ],
   imports: [
     CommonModule,
     ComponentsRoutingModule,
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports:[
     NavbarComponent,
     FormAltaEspecialistaComponent,
     FormAltaPacienteComponent,
-    FormAltaAdministradorComponent
+    FormAltaAdministradorComponent,
   ]
 })
 export class ComponentsModule { }

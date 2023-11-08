@@ -17,7 +17,7 @@ import { ComponentsModule } from './components/components.module';
     ComponentsModule,
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
   ],

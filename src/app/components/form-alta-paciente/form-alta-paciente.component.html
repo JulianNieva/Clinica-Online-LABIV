@@ -91,7 +91,7 @@
         *La contraseña es obligatoria
       </small>
       <small class="mensaje-error" *ngIf="
-              formPaciente.controls['clave'].errors?.['length'] &&
+              formPaciente.controls['clave'].errors?.['minlength'] &&
               formPaciente.controls['clave'].touched
             ">
         *Debe tener como mínimo 6 caracteres
