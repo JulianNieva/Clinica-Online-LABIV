@@ -6,21 +6,25 @@ $font: 'Montserrat', sans-serif;
 .main {
     font-family: $font;
     position: absolute;
-    width: 500px;
+    width: 360px;
     height: 500px;
-    background-color: rgb(32, 121, 120);
+    background-color: #228364;
     margin-left: 30%;
     border-radius: 10px;
-    right: -100%;
+    right: -65%;
     top: -0%;
     color: #fff;
     padding: 1rem;
     border: 3px solid #fff;
     padding-top: 0px;
     box-shadow: 2px 2px 4px #000;
-    overflow: hidden;
+    overflow: scroll;
   }
   
+  .main::-webkit-scrollbar {
+    display: none;
+  }
+
   .custom-list {
     border: 1px solid #ffffff;
     padding: 5px;
