@@ -40,7 +40,12 @@ ngOnInit() {
     if(this.formEspecialista.valid && this.imagenes.length == 1)
     {
       this.loading = true
-      const urls = await this.storageService.SubirImagenes(this.nuevoEspecialista.dni.toString(),this.imagenes,"especialistas")
+
+      const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+      const files: FileList | null = fileInput.files;
+
+      const urls = await this.storageService.SubirImagenes(this.formEspecialista.getRawValue().dni,files,"especialistas")
+
       this.nuevoEspecialista.nombre = this.formEspecialista.getRawValue().nombre;
       this.nuevoEspecialista.apellido = this.formEspecialista.getRawValue().apellido;
       this.nuevoEspecialista.edad = this.formEspecialista.getRawValue().edad;

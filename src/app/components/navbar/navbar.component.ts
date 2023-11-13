@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { take,map } from 'rxjs';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { SwalService } from 'src/app/services/swal.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,12 +13,24 @@ export class NavbarComponent implements OnInit {
 
   usuario:any
 
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService,private swal:SwalService,private router:Router) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe((user:any) => {
       if(user){
+        this.authService.seLogueo = true;
         this.usuario = user
+        switch(this.usuario.perfil){
+          case "Paciente":
+            this.authService.esPaciente = true;
+            break;
+          case "Especialista":
+            this.authService.esEspecilista = true;
+            break;
+          case "Administrador":
+            this.authService.esAdmin = true;
+            break;
+        }
       }
       else{
         this.usuario = null
@@ -39,6 +52,9 @@ export class NavbarComponent implements OnInit {
     }).then((res) => {
       if(res.isConfirmed){
         this.authService.Logout()
+        this.swal.MostrarExito("EXITO","Su sesión fue cerrada").then(() => {
+          this.router.navigate([''])
+        })
       }
       else{
         Swal.fire('Se cancelo la operación', '', 'info')

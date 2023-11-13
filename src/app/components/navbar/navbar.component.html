@@ -10,9 +10,15 @@
                     <button class="btn-nav">Inicio</button>
                 </a>
             </li>
+            <li class="nav-item" *ngIf="usuario?.perfil == 'Administrador'">
+                <a class="nav-link active" aria-current="page" [routerLink]="['/usuarios']">
+                    <button class="btn-nav">Usuarios</button>
+                </a>
+            </li>
         </ul>
-        <button class="btn-login" [routerLink]="['auth/login']">Iniciar Sesión</button>
-        <button class="btn-registro" [routerLink]="['auth/register']">Registro</button>
+        <button *ngIf="!usuario" class="btn-login" [routerLink]="['auth/login']">Iniciar Sesión</button>
+        <button *ngIf="!usuario" class="btn-registro" [routerLink]="['auth/register']">Registro</button>
+        <button *ngIf="usuario" class="btn-login" (click)="CerrarSesion()">Cerrar Sesión</button>
     </div>
 </nav>
 

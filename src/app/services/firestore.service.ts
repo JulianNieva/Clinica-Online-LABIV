@@ -29,4 +29,11 @@ export class FirestoreService {
 
     return collectionUsers.ref.where('email','==',email).limit(1).get();
   }
+
+  TraerUsuarios()
+  {
+    const collectionUser = this.angularFirestore.collection('usuarios')
+
+    return collectionUser.valueChanges()
+  }
 }

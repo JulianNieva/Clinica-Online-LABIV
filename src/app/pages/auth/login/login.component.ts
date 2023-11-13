@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit{
       const clave = this.formUsuario.getRawValue().clave;
 
       this.authService.Login(email,clave).then((data:any) => {
-        console.info(data)
         if (!data.user.emailVerified) {
           this.swal.MostrarAdvertencia("ADVERTENCIA","¡Debe verificar su correo electrónico antes de poder ingresar!");
           this.authService.Logout();
@@ -58,6 +57,7 @@ export class LoginComponent implements OnInit{
                   this.authService.ActualizarUsuario(usuarioLogueado);
                   this.authService.seLogueo = true;
                   this.router.navigate(['']);
+                  this.loading = false;
                 });
                 break;
               case "Especialista":
@@ -72,21 +72,25 @@ export class LoginComponent implements OnInit{
                 }
                 else
                 {
-                  this.swal.MostrarError("ERROR","Su cuenta esta pendiente de aprobacion por un Administrador")
+                  this.swal.MostrarAdvertencia("ATENCION","Su cuenta esta pendiente de aprobacion por un Administrador")
                   this.authService.Logout();
                   this.authService.seLogueo = false;
                 }
+                this.loading = false;
                 break;
               default:
                 this.swal.MostrarExito("¡Ingreso Exitoso!","¡Sera redirigido al inicio!").then(() => {
                   this.authService.seLogueo = true;
                   this.router.navigate(['']);
+                  this.loading = false;
                 });
                 break;
             }
           })
-          this.loading = false;
         }
+      }).catch((error) => {
+        this.swal.MostrarError("ERROR",this.authService.ObtenerMensajeError(error.code))
+        this.loading = false;
       })
     }
     else

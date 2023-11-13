@@ -5,8 +5,9 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth'; 
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from 'src/environments/environment';
+import { provideStorage,getStorage } from '@angular/fire/storage';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { ComponentsModule } from './components/components.module';
 
 @NgModule({
@@ -18,9 +19,10 @@ import { ComponentsModule } from './components/components.module';
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     AngularFirestoreModule,
-    AngularFireStorageModule,
     AngularFireAuthModule,
+    provideStorage(() => getStorage())
   ],
   providers: [],
   bootstrap: [AppComponent]

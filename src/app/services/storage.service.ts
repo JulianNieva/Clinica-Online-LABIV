@@ -1,27 +1,29 @@
 import { Injectable } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
-  constructor(private angularFireStorage:AngularFireStorage) { }
-
+  constructor(private storage:Storage) { }
 
   async SubirImagenes(dni:string, files:any, perfil:any)
   {
-    const urls:any[] = []
-    if (files) {
-      for (let i = 0; i < files.length; i++) {
-        const path = `${perfil}/img_${i}_${dni}_${new Date().getDate()}_${new Date().getMonth()}_${new Date().getFullYear()}_${new Date().toLocaleTimeString()}`;
-        const foto = files[i];
-        const imgRef = this.angularFireStorage.ref(path);
-        const task = await imgRef.put(foto)
-        const urlImg = await task.ref.getDownloadURL();
-        urls.push(urlImg)
-      }
+    const urls: string[] = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const fileName = `img${i}_${dni}_${Date.now()}_${Math.random()*10}`;
+  
+      const imgRef = ref(this.storage, `${perfil}/${fileName}`);
+      await uploadBytes(imgRef, file).then(() => {
+        getDownloadURL(imgRef).then(url => {
+          urls.push(url)
+        })
+      })
     }
+  
     return urls;
   }
 }

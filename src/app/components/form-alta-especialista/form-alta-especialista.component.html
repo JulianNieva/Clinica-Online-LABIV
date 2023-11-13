@@ -74,16 +74,19 @@
             </small>
         </div>
         <div class="col-sm mb-3">
-
             <input formControlName="email" type="email" class="form-control" placeholder="Correo electrónico" />
             <small class="mensaje-error"
                 *ngIf="formEspecialista.controls['email'].errors?.['required'] && formEspecialista.controls['email'].touched">
-                *El correo eléctronico es obligatorio
+                *El correo electrónico es obligatorio
+            </small>
+            <small class="mensaje-error"
+                *ngIf="formEspecialista.controls['email'].errors?.['email'] && formEspecialista.controls['email'].touched">
+                *Ingrese un correo electrónico válido
             </small>
         </div>
 
         <div class="col-sm mb-3">
-            <input formControlName="clave" type="clave" class="form-control" placeholder="Contraseña" pattern=".{6,}"
+            <input formControlName="clave" type="password" class="form-control" placeholder="Contraseña" pattern=".{6,}"
                 title="Debe tener como mínimo 6 caracteres" />
             <small class="mensaje-error" *ngIf="
           formEspecialista.controls['clave'].errors?.['required'] &&

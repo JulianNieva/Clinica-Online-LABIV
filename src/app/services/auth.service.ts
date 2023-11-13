@@ -13,6 +13,8 @@ import firebase from 'firebase/compat/app';
 export class AuthService {
   user$: any;
   esAdmin: boolean = false;
+  esPaciente:boolean = false;
+  esEspecilista:boolean = false;
   seLogueo: boolean = false;
   usuarioLogueado: any;
 
@@ -38,7 +40,6 @@ export class AuthService {
     }
 
     registerUsuario(nuevoUsuario: Usuario) {
-      console.log("Entre 1")
       var config = {
         apiKey: "AIzaSyBeQCqlXZ7Ocrjwrux1Y5IyWqxPHaUHpr4",
         authDomain: "clinicaonline-f8262.firebaseapp.com",
@@ -48,12 +49,10 @@ export class AuthService {
         appId: "1:555095323499:web:6911001a4b1b0f4264522e"
       };
       const secondaryApp = firebase.initializeApp(config, "Secondary");
-
       secondaryApp.auth().createUserWithEmailAndPassword(nuevoUsuario.email, nuevoUsuario.password)
         .then((data: any) => {
           const uid = data.user?.uid;
           const documento = this.angularFirestore.doc('usuarios/' + uid);
-          console.info(nuevoUsuario)
           documento.set({
             id: uid,
             perfil: nuevoUsuario.perfil,
@@ -89,6 +88,8 @@ export class AuthService {
       this.afAuth.signOut().then(() =>{
         this.seLogueo = false;
         this.esAdmin = false;
+        this.esEspecilista = false;
+        this.esPaciente = false;
       }).catch((error) => {
         this.swal.MostrarError("¡ERROR!",this.ObtenerMensajeError(error.errorCode))
         console.log(error)

@@ -39,7 +39,12 @@ export class FormAltaPacienteComponent {
     if(this.formPaciente.valid && this.imagenes.length == 2)
     {
       this.loading = true
-      const urls = await this.storageService.SubirImagenes(this.nuevoPaciente.dni.toString(),this.imagenes,"pacientes")
+
+      const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+      const files: FileList | null = fileInput.files;
+
+      const urls = await this.storageService.SubirImagenes(this.formPaciente.getRawValue().dni,files,"pacientes")
+
       this.nuevoPaciente.nombre = this.formPaciente.getRawValue().nombre;
       this.nuevoPaciente.apellido = this.formPaciente.getRawValue().apellido;
       this.nuevoPaciente.edad = this.formPaciente.getRawValue().edad;
