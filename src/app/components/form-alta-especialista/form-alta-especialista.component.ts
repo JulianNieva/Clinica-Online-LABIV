@@ -1,5 +1,8 @@
 import { Component,Input} from '@angular/core';
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
+import { Usuario } from 'src/app/classes/usuario';
+import { AuthService } from 'src/app/services/auth.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { SwalService } from 'src/app/services/swal.service';
 
 @Component({
@@ -13,8 +16,10 @@ export class FormAltaEspecialistaComponent {
   formEspecialista: FormGroup;
   textoEspecialidades: string = "";
   imagenes:string[]
+  nuevoEspecialista = new Usuario()
+  loading = false
  
-  constructor(private fb: FormBuilder,private swal:SwalService) { 
+  constructor(private fb: FormBuilder,private swal:SwalService,private storageService:StorageService,private authService:AuthService) { 
     this.imagenes = [];
   }
 
@@ -31,8 +36,31 @@ ngOnInit() {
     });
   }
 
-  Registrar() {
-    console.log("Hola")
+  async Registrar() {
+    if(this.formEspecialista.valid && this.imagenes.length == 1)
+    {
+      this.loading = true
+      const urls = await this.storageService.SubirImagenes(this.nuevoEspecialista.dni.toString(),this.imagenes,"especialistas")
+      this.nuevoEspecialista.nombre = this.formEspecialista.getRawValue().nombre;
+      this.nuevoEspecialista.apellido = this.formEspecialista.getRawValue().apellido;
+      this.nuevoEspecialista.edad = this.formEspecialista.getRawValue().edad;
+      this.nuevoEspecialista.dni = this.formEspecialista.getRawValue().dni;
+      this.nuevoEspecialista.especialidad = this.formEspecialista.getRawValue().especialidad;
+      this.nuevoEspecialista.email = this.formEspecialista.getRawValue().email;
+      this.nuevoEspecialista.password = this.formEspecialista.getRawValue().clave;
+      this.nuevoEspecialista.perfil = "Especialista"
+      this.nuevoEspecialista.fotos = urls
+      this.authService.registerUsuario(this.nuevoEspecialista)
+      setTimeout(() => {
+        this.loading = false;
+        this.formEspecialista.reset();
+        this.nuevoEspecialista = new Usuario();
+      }, 2000);
+    }
+    else {
+      this.swal.MostrarError('ERROR','¡Asegurese de completar el formulario correctamente!');
+    }
+    this.loading = false
   }
 
   handleFileInputChange(event: any) {
@@ -65,5 +93,4 @@ ngOnInit() {
     this.textoEspecialidades = $event.map((especialidad) => especialidad.nombre).join(' - ');
     this.especialidad = $event;
   }
-
 }

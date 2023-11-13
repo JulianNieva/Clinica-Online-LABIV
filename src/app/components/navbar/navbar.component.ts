@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { take,map } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -6,10 +8,22 @@ import Swal from 'sweetalert2';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
-  constructor() 
-  { }
+  usuario:any
+
+  constructor(private authService:AuthService) { }
+
+  ngOnInit(): void {
+    this.authService.user$.subscribe((user:any) => {
+      if(user){
+        this.usuario = user
+      }
+      else{
+        this.usuario = null
+      }
+    }) 
+  }
 
   CerrarSesion()
   {
@@ -24,7 +38,7 @@ export class NavbarComponent {
       icon:"question"
     }).then((res) => {
       if(res.isConfirmed){
-        //this.userService.SignOut()
+        this.authService.Logout()
       }
       else{
         Swal.fire('Se cancelo la operación', '', 'info')

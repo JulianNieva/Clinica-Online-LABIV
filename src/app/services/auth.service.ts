@@ -48,11 +48,9 @@ export class AuthService {
         appId: "1:555095323499:web:6911001a4b1b0f4264522e"
       };
       const secondaryApp = firebase.initializeApp(config, "Secondary");
-      console.log("Entre 2 luego de crear la 2da app de firebase")
 
       secondaryApp.auth().createUserWithEmailAndPassword(nuevoUsuario.email, nuevoUsuario.password)
         .then((data: any) => {
-          console.log("Entre 3 luego de crear la cuenta")
           const uid = data.user?.uid;
           const documento = this.angularFirestore.doc('usuarios/' + uid);
           console.info(nuevoUsuario)
@@ -71,22 +69,18 @@ export class AuthService {
             aprobado: nuevoUsuario.aprobado,
           })
             .then(() => {
-              console.log("Se guardo en la BD")
               data.user.sendEmailVerification();
               this.swal.MostrarExito("¡Registro exitoso!","Por favor, verifique su correo electrónico para activar su cuenta");
             })
             .catch((error) => {
-              console.log("No se creo el usuario en la BD")
               this.swal.MostrarError("ERROR",this.ObtenerMensajeError(error.code));
             })
             .finally(() => {
-              console.log("Cierro la nueva sesión")
               secondaryApp.auth().signOut();
               secondaryApp.delete();
             });
         })
         .catch((error: any) => {
-          console.log("Entre 4 Por algo no creo la cuenta")
           this.swal.MostrarError("ERROR",this.ObtenerMensajeError(error.code));
         });
     }
@@ -106,9 +100,6 @@ export class AuthService {
         .doc<any>(`usuarios/${usuario.id}`)
         .update(usuario)
         .then(() => { })
-        .catch((error) => {
-          this.swal.MostrarError('Ocurrio un error', 'Administrador');
-        });
     }
 
     ObtenerMensajeError(errorCode: string): string {
