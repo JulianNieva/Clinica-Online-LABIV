@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore,AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +22,11 @@ export class FirestoreService {
       uid: uid,
       nombre: especialidades
     });
+  }
+
+  TraerUsuarioPorEmail(email:string) {
+    const collectionUsers = this.angularFirestore.collection('usuarios')
+
+    return collectionUsers.ref.where('email','==',email).limit(1).get();
   }
 }

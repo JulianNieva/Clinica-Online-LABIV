@@ -1,5 +1,8 @@
 import { Component} from '@angular/core';
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
+import { Usuario } from 'src/app/classes/usuario';
+import { AuthService } from 'src/app/services/auth.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { SwalService } from 'src/app/services/swal.service';
 
 @Component({
@@ -12,8 +15,10 @@ export class FormAltaPacienteComponent {
   //@ts-ignore
   formPaciente: FormGroup;
   imagenes:string[]
+  loading:boolean = false
+  nuevoPaciente = new Usuario()
 
-  constructor(private fb: FormBuilder,private swal:SwalService) { 
+  constructor(private fb: FormBuilder,private swal:SwalService,private storageService:StorageService,private authService:AuthService) { 
     this.imagenes = [];
   }
 
@@ -30,8 +35,31 @@ export class FormAltaPacienteComponent {
     });
   }
 
-  Registrar() {
-    console.log("Hola")
+  async Registrar() {
+    if(this.formPaciente.valid && this.imagenes.length == 2)
+    {
+      this.loading = true
+      const urls = await this.storageService.SubirImagenes(this.nuevoPaciente.dni.toString(),this.imagenes,"pacientes")
+      this.nuevoPaciente.nombre = this.formPaciente.getRawValue().nombre;
+      this.nuevoPaciente.apellido = this.formPaciente.getRawValue().apellido;
+      this.nuevoPaciente.edad = this.formPaciente.getRawValue().edad;
+      this.nuevoPaciente.dni = this.formPaciente.getRawValue().dni;
+      this.nuevoPaciente.obraSocial = this.formPaciente.getRawValue().obraSocial;
+      this.nuevoPaciente.email = this.formPaciente.getRawValue().email;
+      this.nuevoPaciente.password = this.formPaciente.getRawValue().clave;
+      this.nuevoPaciente.perfil = "Paciente"
+      this.nuevoPaciente.fotos = urls
+      this.authService.registerUsuario(this.nuevoPaciente)
+      setTimeout(() => {
+        this.loading = false;
+        this.formPaciente.reset();
+        this.nuevoPaciente = new Usuario();
+      }, 2000);
+    }
+    else {
+      this.swal.MostrarError('ERROR','¡Asegurese de completar el formulario correctamente!');
+    }
+    this.loading = false
   }
 
   handleFileInputChange(event: any) {
@@ -49,5 +77,10 @@ export class FormAltaPacienteComponent {
       const imageUrl = URL.createObjectURL(file);
       this.imagenes.push(imageUrl);
     }
+  }
+
+  LimpiarForm() {
+    this.formPaciente.reset();
+    this.imagenes = [];
   }
 }

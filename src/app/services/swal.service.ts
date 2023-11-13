@@ -25,4 +25,13 @@ export class SwalService {
       timer:2000
     })
   }
+
+  MostrarAdvertencia(titulo:string,mensaje:string)
+  {
+    return Swal.fire({
+      title: titulo,
+      text: mensaje,
+      icon:"warning",
+    })
+  }
 }

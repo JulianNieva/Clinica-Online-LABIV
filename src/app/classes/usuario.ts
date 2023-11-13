@@ -7,7 +7,7 @@ export class Usuario {
     dni: number;
     obraSocial: string;
     especialidad: string;
-    mail: string;
+    email: string;
     password: string;
     fotos: any;
     aprobado: boolean;
@@ -21,7 +21,7 @@ export class Usuario {
       this.dni = 0;
       this.obraSocial = '';
       this.especialidad = '';
-      this.mail = '';
+      this.email = '';
       this.password = '';
       this.aprobado = false;
     }

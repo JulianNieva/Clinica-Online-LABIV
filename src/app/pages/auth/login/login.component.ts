@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Usuario } from 'src/app/classes/usuario';
+import { AuthService } from 'src/app/services/auth.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { SwalService } from 'src/app/services/swal.service';
 
 @Component({
@@ -13,7 +17,7 @@ export class LoginComponent implements OnInit{
   //@ts-ignore
   formUsuario: FormGroup;
 
-  constructor(private fb: FormBuilder,private swal:SwalService) { }
+  constructor(private fb: FormBuilder,private swal:SwalService,private authService:AuthService,private firestoreService:FirestoreService,private router:Router) { }
 
   ngOnInit(): void {
     this.loading = true
@@ -27,8 +31,68 @@ export class LoginComponent implements OnInit{
     }, 1600);
   }
 
-  Login()
+  async Login()
   {
-    
+    if(this.formUsuario.valid)
+    {
+      this.loading = true;
+      const email = this.formUsuario.getRawValue().email;
+      const clave = this.formUsuario.getRawValue().clave;
+
+      this.authService.Login(email,clave).then((data:any) => {
+        console.info(data)
+        if (!data.user.emailVerified) {
+          this.swal.MostrarAdvertencia("ADVERTENCIA","¡Debe verificar su correo electrónico antes de poder ingresar!");
+          this.authService.Logout();
+          this.authService.seLogueo = false;
+          this.loading = false;
+        }
+        else
+        {
+          this.firestoreService.TraerUsuarioPorEmail(email).then((querySnapshot) => {
+            const usuarioLogueado = querySnapshot.docs[0].data() as Usuario;
+            switch (usuarioLogueado.perfil) {
+              case "Paciente":
+                this.swal.MostrarExito("¡Ingreso Exitoso!","¡Sera redirigido al inicio!").then(() => {
+                  usuarioLogueado.aprobado = true;
+                  this.authService.ActualizarUsuario(usuarioLogueado);
+                  this.authService.seLogueo = true;
+                  this.router.navigate(['']);
+                });
+                break;
+              case "Especialista":
+                if(usuarioLogueado.aprobado)
+                {
+                  this.swal.MostrarExito("¡Ingreso Exitoso!","¡Sera redirigido al inicio!").then(() => {
+                    usuarioLogueado.aprobado = true;
+                    this.authService.ActualizarUsuario(usuarioLogueado);
+                    this.authService.seLogueo = true;
+                    this.router.navigate(['']);
+                  });
+                }
+                else
+                {
+                  this.swal.MostrarError("ERROR","Su cuenta esta pendiente de aprobacion por un Administrador")
+                  this.authService.Logout();
+                  this.authService.seLogueo = false;
+                }
+                break;
+              default:
+                this.swal.MostrarExito("¡Ingreso Exitoso!","¡Sera redirigido al inicio!").then(() => {
+                  this.authService.seLogueo = true;
+                  this.router.navigate(['']);
+                });
+                break;
+            }
+          })
+          this.loading = false;
+        }
+      })
+    }
+    else
+    {
+      this.swal.MostrarError("ERROR","¡Asegurese de completar los campos correctamente!")
+      this.loading = false;
+    }
   }
 }
