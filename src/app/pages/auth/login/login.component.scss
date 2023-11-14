@@ -15,9 +15,15 @@ $font: 'Montserrat', sans-serif;
     position: fixed;
 }
 
+.container-inicio-rapido {
+  position: fixed;
+  transform: translateX(14rem);
+}
+
 .container {
   display: flex;
   justify-content: center;
+  transform: translateX(10rem);
 }
 
 .card{

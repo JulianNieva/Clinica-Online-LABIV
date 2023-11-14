@@ -7,6 +7,7 @@ import { FormAltaEspecialistaComponent } from './form-alta-especialista/form-alt
 import { FormAltaAdministradorComponent } from './form-alta-administrador/form-alta-administrador.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListaEspecialidadesComponent } from './lista-especialidades/lista-especialidades.component';
+import { InicioUsuariosComponent } from './inicio-usuarios/inicio-usuarios.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ListaEspecialidadesComponent } from './lista-especialidades/lista-espec
     FormAltaPacienteComponent,
     FormAltaEspecialistaComponent,
     FormAltaAdministradorComponent,
-    ListaEspecialidadesComponent
+    ListaEspecialidadesComponent,
+    InicioUsuariosComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,7 @@ import { ListaEspecialidadesComponent } from './lista-especialidades/lista-espec
     FormAltaEspecialistaComponent,
     FormAltaPacienteComponent,
     FormAltaAdministradorComponent,
+    InicioUsuariosComponent
   ]
 })
 export class ComponentsModule { }

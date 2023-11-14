@@ -99,4 +99,13 @@ export class LoginComponent implements OnInit{
       this.loading = false;
     }
   }
+
+  ReciboUnUsuario($event:any)
+  {
+    console.info($event)
+    this.formUsuario.patchValue({
+      email: $event.email,
+      clave:$event.password
+    })
+  }
 }

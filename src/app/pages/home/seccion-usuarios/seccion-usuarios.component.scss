@@ -36,27 +36,9 @@ $font: 'Montserrat', sans-serif;
     }
   }
   
-  .btn-fav {
-      width: 10rem;
-      height: 10rem;
-      background-color: rgb(64, 78, 174);
-      border-radius: 50%;
-    }
-  .btn-fav:hover {
-    background: #024c4e;
-    color: #fff;
-    transition: background 0.5s, color 0.5s;
-    transform: translateY(-5px);
-  }
-  
-  .btn-excel {
-    width: 20rem;
-    position: absolute;
-    z-index: 200;
-    top: 18%;
-    right: 6.5%;
-    height: 3rem;
-    background: #16bb00;
+  .imagen-usuario{
+    width: 10rem;
+    height: 10rem;
   }
   
   .user-name {
@@ -74,6 +56,7 @@ $font: 'Montserrat', sans-serif;
     div {
       display: flex;
       flex-direction: column;
+      justify-content: center;
       padding: 1rem;
       border-radius: 20px;
       border: 2px solid #fff;
@@ -88,7 +71,7 @@ $font: 'Montserrat', sans-serif;
         display: block;
         margin-left: auto;
         margin-right: auto;
-        width: 32rem;
+        width: 20rem;
       }
     }
     div:hover {
