@@ -17,7 +17,8 @@ export class FormAltaEspecialistaComponent {
   textoEspecialidades: string = "";
   imagenes:string[]
   nuevoEspecialista = new Usuario()
-  loading = false
+  loading = false;
+  captcha:string = ''
  
   constructor(private fb: FormBuilder,private swal:SwalService,private storageService:StorageService,private authService:AuthService) { 
     this.imagenes = [];
@@ -32,35 +33,45 @@ ngOnInit() {
       especialidad: ['', [Validators.required]],
       email: ['',[Validators.required,Validators.email]],
       clave: ['',[Validators.required,Validators.minLength(6)]],
-      foto:['',Validators.required]
+      foto:['',Validators.required],
+      captcha:['',Validators.required]
     });
+
+    this.captcha = this.GenerarCaptcha(6)
   }
 
   async Registrar() {
     if(this.formEspecialista.valid && this.imagenes.length == 1)
     {
-      this.loading = true
+      if(this.captcha.toLocaleLowerCase().trim() == this.formEspecialista.getRawValue().captcha.toLocaleLowerCase().trim())
+      {
+        this.loading = true
 
-      const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-      const files: FileList | null = fileInput.files;
-
-      const urls = await this.storageService.SubirImagenes(this.formEspecialista.getRawValue().dni,files,"especialistas")
-
-      this.nuevoEspecialista.nombre = this.formEspecialista.getRawValue().nombre;
-      this.nuevoEspecialista.apellido = this.formEspecialista.getRawValue().apellido;
-      this.nuevoEspecialista.edad = this.formEspecialista.getRawValue().edad;
-      this.nuevoEspecialista.dni = this.formEspecialista.getRawValue().dni;
-      this.nuevoEspecialista.especialidad = this.formEspecialista.getRawValue().especialidad;
-      this.nuevoEspecialista.email = this.formEspecialista.getRawValue().email;
-      this.nuevoEspecialista.password = this.formEspecialista.getRawValue().clave;
-      this.nuevoEspecialista.perfil = "Especialista"
-      this.nuevoEspecialista.fotos = urls
-      this.authService.registerUsuario(this.nuevoEspecialista)
-      setTimeout(() => {
-        this.loading = false;
-        this.formEspecialista.reset();
-        this.nuevoEspecialista = new Usuario();
-      }, 2000);
+        const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+        const files: FileList | null = fileInput.files;
+  
+        const urls = await this.storageService.SubirImagenes(this.formEspecialista.getRawValue().dni,files,"especialistas")
+  
+        this.nuevoEspecialista.nombre = this.formEspecialista.getRawValue().nombre;
+        this.nuevoEspecialista.apellido = this.formEspecialista.getRawValue().apellido;
+        this.nuevoEspecialista.edad = this.formEspecialista.getRawValue().edad;
+        this.nuevoEspecialista.dni = this.formEspecialista.getRawValue().dni;
+        this.nuevoEspecialista.especialidad = this.formEspecialista.getRawValue().especialidad;
+        this.nuevoEspecialista.email = this.formEspecialista.getRawValue().email;
+        this.nuevoEspecialista.password = this.formEspecialista.getRawValue().clave;
+        this.nuevoEspecialista.perfil = "Especialista"
+        this.nuevoEspecialista.fotos = urls
+        this.authService.registerUsuario(this.nuevoEspecialista)
+        setTimeout(() => {
+          this.loading = false;
+          this.formEspecialista.reset();
+          this.nuevoEspecialista = new Usuario();
+        }, 2000);
+      }
+      else
+      {
+        this.swal.MostrarError('ERROR','¡El captcha es incorrecto!');
+      }
     }
     else {
       this.swal.MostrarError('ERROR','¡Asegurese de completar el formulario correctamente!');
@@ -97,5 +108,18 @@ ngOnInit() {
     //@ts-ignore
     this.textoEspecialidades = $event.map((especialidad) => especialidad.nombre).join(' - ');
     this.especialidad = $event;
+  }
+
+  GenerarCaptcha(num:number) :string
+  {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let captchaRetorno = ' ';
+    const cantCaracteres = caracteres.length;
+    for (let i = 0; i < num; i++) {
+      captchaRetorno += caracteres.charAt(
+        Math.floor(Math.random() * cantCaracteres)
+      );
+    }
+    return captchaRetorno;
   }
 }

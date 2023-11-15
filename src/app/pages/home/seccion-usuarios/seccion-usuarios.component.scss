@@ -2,6 +2,19 @@
 
 $font: 'Montserrat', sans-serif;
 
+.background-image{
+  font-family: $font;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:url('../../../../assets/fondos/home.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+}
+
 .tabla-usuario {
     font-family: $font;
     position: absolute;
@@ -20,7 +33,7 @@ $font: 'Montserrat', sans-serif;
     h3 {
       font-family: $font;
       text-align: center;
-      margin-bottom: 50px;
+      margin-bottom: 20px;
     }
     table {
       font-family:$font ;
@@ -37,8 +50,11 @@ $font: 'Montserrat', sans-serif;
   }
   
   .imagen-usuario{
-    width: 10rem;
-    height: 10rem;
+    width: 7rem;
+    height: 7rem;
+    border-radius: 30px;
+    border-style: ridge;
+    border-color: #000;
   }
   
   .user-name {
@@ -46,41 +62,42 @@ $font: 'Montserrat', sans-serif;
   }
   
   .opcion-registros {
-    position: absolute;
-    z-index: 100;
-    left: 5%;
-    top: 27%;
+      z-index: 100;
+      margin-top: 8rem;
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+      flex-wrap: wrap;
   }
   
-  .col {
-    div {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 1rem;
-      border-radius: 20px;
-      border: 2px solid #fff;
-      box-shadow: 2px 2px 4px #000;
-      color: #fff;
-      background-color: rgb(32, 121, 120);
-      h2 {
-        text-align: center;
-        text-shadow: 1px 1px #000;
-      }
-      img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 20rem;
-      }
+  .btn {
+    margin: 2rem;
+    border-radius: 10px;
+    width: 25rem;
+    background-color: #F1FAEE;
+    img {
+        margin-top: 0.7rem;
+        width: 10rem;
     }
-    div:hover {
-      color: #000000;
-      background: rgb(249, 219, 219);
-      cursor: pointer;
-      transition: background 0.5s, color 0.5s;
+    h2 {
+        margin-top: 1rem;
+        color: #E63946;
+        font-weight: bolder;
+        letter-spacing: 0.2rem;
     }
-  }
+}
+
+.transUp {
+    transition: .5s, color .10s;
+    -webkit-transition: .5s, color .10s;
+    -moz-transition: .5s, color .10s;
+}
+
+.transUp:hover {
+    transform: translatey(-20px);
+    -webkit-transform: translatey(-20px);
+    -moz-transform: translatey(-20px);
+}
   
   .registro-paciente {
     position: absolute;
@@ -98,7 +115,7 @@ $font: 'Montserrat', sans-serif;
     transform: translate(-50%, -50%);
 }
   
-  .btn-volver {
+.btn-volver {
     font-family: $font;
     position: absolute;
     left: 1rem;
@@ -108,8 +125,8 @@ $font: 'Montserrat', sans-serif;
     border: 2px solid #fff;
     border-radius: 0.5rem;
     padding: 0 1rem;
-    background-color: transparent;
-  }
+    background-color: #E63946;
+}
   .btn-volver:hover {
     transform: translateY(-5px);
   }

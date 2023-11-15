@@ -17,6 +17,7 @@ export class FormAltaPacienteComponent {
   imagenes:string[]
   loading:boolean = false
   nuevoPaciente = new Usuario()
+  captcha:string = ''
 
   constructor(private fb: FormBuilder,private swal:SwalService,private storageService:StorageService,private authService:AuthService) { 
     this.imagenes = [];
@@ -31,35 +32,45 @@ export class FormAltaPacienteComponent {
       obraSocial: ['',[Validators.required]],
       email: ['',[Validators.required,Validators.email]],
       clave: ['',[Validators.required,Validators.minLength(6)]],
-      foto:['',Validators.required]
+      foto:['',Validators.required],
+      captcha:['',Validators.required]
     });
+
+    this.captcha = this.GenerarCaptcha(6)
   }
 
   async Registrar() {
     if(this.formPaciente.valid && this.imagenes.length == 2)
     {
-      this.loading = true
+      if(this.captcha.toLocaleLowerCase().trim() == this.formPaciente.getRawValue().captcha.toLocaleLowerCase().trim())
+      {
+        this.loading = true
 
-      const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-      const files: FileList | null = fileInput.files;
-
-      const urls = await this.storageService.SubirImagenes(this.formPaciente.getRawValue().dni,files,"pacientes")
-
-      this.nuevoPaciente.nombre = this.formPaciente.getRawValue().nombre;
-      this.nuevoPaciente.apellido = this.formPaciente.getRawValue().apellido;
-      this.nuevoPaciente.edad = this.formPaciente.getRawValue().edad;
-      this.nuevoPaciente.dni = this.formPaciente.getRawValue().dni;
-      this.nuevoPaciente.obraSocial = this.formPaciente.getRawValue().obraSocial;
-      this.nuevoPaciente.email = this.formPaciente.getRawValue().email;
-      this.nuevoPaciente.password = this.formPaciente.getRawValue().clave;
-      this.nuevoPaciente.perfil = "Paciente"
-      this.nuevoPaciente.fotos = urls
-      this.authService.registerUsuario(this.nuevoPaciente)
-      setTimeout(() => {
-        this.loading = false;
-        this.formPaciente.reset();
-        this.nuevoPaciente = new Usuario();
-      }, 2000);
+        const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+        const files: FileList | null = fileInput.files;
+  
+        const urls = await this.storageService.SubirImagenes(this.formPaciente.getRawValue().dni,files,"pacientes")
+  
+        this.nuevoPaciente.nombre = this.formPaciente.getRawValue().nombre;
+        this.nuevoPaciente.apellido = this.formPaciente.getRawValue().apellido;
+        this.nuevoPaciente.edad = this.formPaciente.getRawValue().edad;
+        this.nuevoPaciente.dni = this.formPaciente.getRawValue().dni;
+        this.nuevoPaciente.obraSocial = this.formPaciente.getRawValue().obraSocial;
+        this.nuevoPaciente.email = this.formPaciente.getRawValue().email;
+        this.nuevoPaciente.password = this.formPaciente.getRawValue().clave;
+        this.nuevoPaciente.perfil = "Paciente"
+        this.nuevoPaciente.fotos = urls
+        this.authService.registerUsuario(this.nuevoPaciente)
+        setTimeout(() => {
+          this.loading = false;
+          this.formPaciente.reset();
+          this.nuevoPaciente = new Usuario();
+        }, 2000);
+      }
+      else
+      {
+        this.swal.MostrarError('ERROR','¡El captcha es incorrecto!');
+      }
     }
     else {
       this.swal.MostrarError('ERROR','¡Asegurese de completar el formulario correctamente!');
@@ -87,5 +98,18 @@ export class FormAltaPacienteComponent {
   LimpiarForm() {
     this.formPaciente.reset();
     this.imagenes = [];
+  }
+
+  GenerarCaptcha(num:number) :string
+  {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let captchaRetorno = ' ';
+    const cantCaracteres = caracteres.length;
+    for (let i = 0; i < num; i++) {
+      captchaRetorno += caracteres.charAt(
+        Math.floor(Math.random() * cantCaracteres)
+      );
+    }
+    return captchaRetorno;
   }
 }

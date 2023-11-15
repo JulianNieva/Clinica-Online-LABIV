@@ -21,11 +21,6 @@ $font: "Montserrat", sans-serif;
     margin-top: 0px;
     margin-bottom: 30px;
   }
-  label {
-    color: #fff;
-    padding: 0px 10px;
-    border-radius: 5px;
-  }
 }
 
 .btn {
@@ -53,8 +48,22 @@ $font: "Montserrat", sans-serif;
   font-size: small;
 }
 
+.captcha{
+  font-size: 2rem;
+  text-align: center;
+  color: rgb(48, 48, 124);
+  background: #107796;
+  padding: 0.6rem;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-weight: bolder;
+  text-shadow: 1px 1px 1px #fff;
+  border: solid 3px #fff;
+}
+
 /* heart beat */
 .overlay {
+  border-radius: 1rem;
   position: fixed;
   top: 0;
   left: 0;

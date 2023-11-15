@@ -18,7 +18,19 @@
         </ul>
         <button *ngIf="!usuario" class="btn-login" [routerLink]="['auth/login']">Iniciar Sesión</button>
         <button *ngIf="!usuario" class="btn-registro" [routerLink]="['auth/register']">Registro</button>
-        <button *ngIf="usuario" class="btn-login" (click)="CerrarSesion()">Cerrar Sesión</button>
+        <span class="userInfo" *ngIf="this.authService.seLogueo">
+            <div class="user-info-content">
+              <img class="img-btn" src="{{ usuario?.fotos[0] }}" alt="usuario" />
+              <div class="user-info-details">
+                <p class="user-info-name">
+                  {{ usuario?.nombre }} {{ usuario?.apellido }}
+                </p>
+                <button type="button" (click)="CerrarSesion()" class="btn-logout">
+                  Cerrar Sesión
+                </button>
+              </div>
+            </div>
+          </span>
     </div>
 </nav>
 

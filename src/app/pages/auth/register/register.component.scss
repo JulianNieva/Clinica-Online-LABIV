@@ -17,22 +17,21 @@ $font: 'Montserrat', sans-serif;
 
 .container {
     z-index: 100;
-    margin-top: 15rem;
+    margin-top: 12rem;
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 .btn {
     background-color: #F1FAEE;
-    border-radius: 2rem;
-
+    margin-bottom: 2rem;
     img {
         margin-top: 0.7rem;
-        width: 13rem;
+        width: 10rem;
     }
-
     h2 {
-        margin-top: 2rem;
+        margin-top: 1rem;
         color: #E63946;
         font-weight: bolder;
         letter-spacing: 0.2rem;
