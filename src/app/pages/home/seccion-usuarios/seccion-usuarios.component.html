@@ -1,6 +1,6 @@
 <div class="background-image"></div>
 <div class="tabla-usuario text-focus-in" *ngIf="!createrUserMenu">
-    <h3 style="font-size: 2rem; font-weight: bolder">LISTADO DE USUARIOS</h3>
+    <h3>LISTADO DE USUARIOS</h3>
     <table class="table">
         <thead>
             <tr>
@@ -42,11 +42,11 @@
     </table>
 </div>
 
-<button class="btn-habilitar btn-nuevo-usuario" *ngIf="!createrUserMenu" (click)="showCreateUserMenu()">
-    REGISTRAR NUEVO USUARIO
+<button class="btn-nuevo-usuario" *ngIf="!createrUserMenu" (click)="showCreateUserMenu()">
+    REGISTRAR USUARIO
 </button>
 
-<button class="btn-habilitar btn-menu-volver" *ngIf="createrUserMenu" (click)="showUserList()">
+<button class="btn-menu-volver" *ngIf="createrUserMenu" (click)="showUserList()">
     VOLVER AL LISTADO DE USUARIOS
 </button>
 
