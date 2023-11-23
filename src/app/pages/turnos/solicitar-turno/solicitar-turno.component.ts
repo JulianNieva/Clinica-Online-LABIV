@@ -112,38 +112,6 @@ export class SolicitarTurnoComponent implements OnInit{
     this.diasAMostrar = [...aux];
   }
 
-  loadFreeHoursOneDay(date: Date) {
-    this.loading = true;
-    this.turnosDeUnDiaAMostrar = [];
-    setTimeout(() => {
-      const currentDate = new Date();
-      const listaTurnosDelEspecialista = this.currentSpecialistTurnList.filter(
-        (t) => t.especialista.email == this.activeEspecialista.email
-      );
-      const turnosEspecialidad =
-        listaTurnosDelEspecialista[0].turnos.filter((t: any) => {
-          return (
-            t.especialidad == this.speciality.nombre &&
-            currentDate.getTime() < new Date(t.fecha.seconds * 1000).getTime()
-          );
-        });
-      const turnosDeUnDia: any[] = [];
-      for (let i = 0; i < turnosEspecialidad.length; i++) {
-        const turno = { ...turnosEspecialidad[i] };
-        if (
-          new Date(turno.fecha.seconds * 1000).getTime() <= currentDate.getTime() + 84600000 * 15 &&
-          new Date(turno.fecha.seconds * 1000).getDate() == date.getDate() && turno.estado == 'disponible'
-        ) {
-          turno.fecha = new Date(turno.fecha.seconds * 1000);
-          turnosDeUnDia.push(turno);
-        }
-      }
-      this.loading = false;
-      return this.turnosDeUnDiaAMostrar = [...turnosDeUnDia];
-    }, 500);
-  }
-
-
   loadFreeHours(day: string) {
     const currentDate = new Date();
     const listaTurnosDelEspecialista = this.currentSpecialistTurnList.filter(
