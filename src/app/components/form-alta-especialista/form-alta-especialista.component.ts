@@ -56,7 +56,7 @@ ngOnInit() {
         this.nuevoEspecialista.apellido = this.formEspecialista.getRawValue().apellido;
         this.nuevoEspecialista.edad = this.formEspecialista.getRawValue().edad;
         this.nuevoEspecialista.dni = this.formEspecialista.getRawValue().dni;
-        this.nuevoEspecialista.especialidad = this.formEspecialista.getRawValue().especialidad;
+        this.nuevoEspecialista.especialidad = this.especialidad
         this.nuevoEspecialista.email = this.formEspecialista.getRawValue().email;
         this.nuevoEspecialista.password = this.formEspecialista.getRawValue().clave;
         this.nuevoEspecialista.perfil = "Especialista"
@@ -93,14 +93,6 @@ ngOnInit() {
       const file = files[i];
       const imageUrl = URL.createObjectURL(file);
       this.imagenes.push(imageUrl);
-    }
-  }
-
-  addEspecialidad() {
-    if (this.formEspecialista.getRawValue().especialidad == '') {
-      this.especialidad = true;
-    } else {
-      this.especialidad = false;
     }
   }
 

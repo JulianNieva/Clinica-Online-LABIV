@@ -15,21 +15,41 @@
                     <button class="btn-nav">Usuarios</button>
                 </a>
             </li>
+            <li class="nav-item" *ngIf="authService.seLogueo">
+              <a class="nav-link active" aria-current="page" [routerLink]="['/perfil']">
+                  <button class="btn-nav">Mi perfil</button>
+              </a>
+            </li>
+            <li class="nav-item" *ngIf="authService.esEspecialista || authService.esPaciente">
+              <a class="nav-link active" aria-current="page" [routerLink]="['/turnos/mis-turnos']">
+                  <button class="btn-nav">Mis turnos</button>
+              </a>
+            </li>
+            <li class="nav-item" *ngIf="authService.esAdmin">
+              <a class="nav-link active" aria-current="page" [routerLink]="['/turnos']">
+                  <button class="btn-nav">Turnos</button>
+              </a>
+            </li>
+            <li class="nav-item" *ngIf="authService.esAdmin || authService.esPaciente">
+              <a class="nav-link active" aria-current="page" [routerLink]="['/turnos/solicitar-turno']">
+                  <button class="btn-nav">Solicitar turno</button>
+              </a>
+            </li>
         </ul>
         <button *ngIf="!usuario" class="btn-login" [routerLink]="['auth/login']">Iniciar Sesión</button>
         <button *ngIf="!usuario" class="btn-registro" [routerLink]="['auth/register']">Registro</button>
-        <span class="userInfo" *ngIf="this.authService.seLogueo">
+        <span class="userInfo" *ngIf="usuario">
             <div class="user-info-content">
               <img class="img-btn" src="{{ usuario?.fotos[0] }}" alt="usuario" />
               <div class="user-info-details">
                 <p class="user-info-name">
                   {{ usuario?.nombre }} {{ usuario?.apellido }}
                 </p>
-                <button type="button" (click)="CerrarSesion()" class="btn-logout">
-                  Cerrar Sesión
-                </button>
               </div>
             </div>
+            <button type="button" (click)="CerrarSesion()" class="btn-logout">
+              Cerrar Sesión
+            </button>
           </span>
     </div>
 </nav>
