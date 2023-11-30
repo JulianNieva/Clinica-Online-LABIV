@@ -38,7 +38,7 @@ administración de la misma".**
 # INICIAR SESIÓN
 ### En la página de iniciar sesión nos encontraremos con un formulario a completar y un total de 6 botones que permitan el acceso rápido
 
-![](FotosReadme/login.png)
+![](FotosReadme/Login.png)
 
 # VISTA ADMINISTRADOR
 ### Al iniciar sesión como Administrador contara con las siguientes opciones de interacción : *Usuarios - Mi Perfil - Turnos - Solicitar Turno*
