@@ -20,35 +20,87 @@ administración de la misma".**
 # INICIO
 ### La primera vista que tendra el usuario al no tener su sesión iniciada sera una Bienvenida con dos botones que le permitan redirigirse al Login o al Registro
 
-![](FotosReadme/Welcome.png)
+![](FotosReadme/home.png)
 
 # REGISTRO
 ### En la página de registro nos encontramos con la seleccion de dos tipos de usuarios. Al seleccionar un usuario se mostrara el formulario correspondiente
 
-![](FotosReadme/Register.png)
+![](FotosReadme/registro.png)
 
 ## REGISTRO PACIENTE
 
-![](FotosReadme/RegisterPatient.png)
+![](FotosReadme/regPaciente.png)
 
 ## REGISTRO ESPECIALISTA
 
-![](FotosReadme/RegisterSpecialist.png)
+![](FotosReadme/regEspecialista.png)
 
 # INICIAR SESIÓN
 ### En la página de iniciar sesión nos encontraremos con un formulario a completar y un total de 6 botones que permitan el acceso rápido
 
-![](FotosReadme/Login.png)
+![](FotosReadme/login.png)
 
 # VISTA ADMINISTRADOR
-### Al iniciar sesión como Administrador contara con las siguientes opciones de interacción : *Usuarios*
+### Al iniciar sesión como Administrador contara con las siguientes opciones de interacción : *Usuarios - Mi Perfil - Turnos - Solicitar Turno*
 
-![](FotosReadme/AdminView.png)
+![](FotosReadme/adminview.png)
 
 ## Vista Usuarios
-### Desde aca podemos ver el listado de todos los usuarios. Se puede habilitar o deshabilitar un Especialista. Tambien podemos registrar a un nuevo usuario siguiendo el criterio anterior, pero con la oportunidad de registrar a un administrador
+### Desde aca podemos ver el listado de todos los usuarios. Se puede habilitar o deshabilitar un Especialista. Revisar el historial clinico de un Paciente, y descargar sus turnos. Tambien podemos registrar a un nuevo usuario siguiendo el criterio anterior, pero con la oportunidad de registrar a un administrador
 
-![](FotosReadme/Users.png)
+![](FotosReadme/listado-Usuarios.png)
+## Registro de Admin
+![](FotosReadme/registroAdmin.png)
+
+#
+![](FotosReadme/reg-Admin.png)
+
+## Vista Mi Perfil
+### En esta sección el Administrador podra ver la informacion de su cuenta
+![](FotosReadme/miperfil-Admin.png)
+
+## Vista Turnos
+### En esta sección el Administrador podra ver todos los turnos dentro de la Clinica
+![](FotosReadme/turnosAdmin.png)
+
+## Vista Solicitar Turno
+### En esta sección el Administrador podra solicitar un Turno para un Paciente que seleccione
+![](FotosReadme/solicitarTurnoAdmin.png)
+
+### Selección de Especialidad, una vez que el Administrador haya seleccionado a un Paciente, se le muestra el listado de Especialidades. La vista del Paciente al solicitar turno comienza desde aqui
+![](FotosReadme/solicitarTurnoPac.png)
+
+### Una vez seleccionada la Especialidad, se mostrara los Especilistas que trabajen con la especialidad seleccionada
+![](FotosReadme/solicitarTurnoPac2.png)
+
+### Como vista final, Si selecciono a un Especialista, se mostrara los turnos que tiene disponibles
+![](FotosReadme/solicitarTurnoPac3.png)
+
+# VISTA PACIENTE
+### Al iniciar sesión como Paciente contara con las siguientes opciones de interacción : *Mi Perfil - Mis Turnos - Solicitar Turno*
+
+## Vista Mi Perfil
+### En esta sección el Paciente podra ver la informacion de su cuenta, y si tiene al menos un Historial Clinico, podra visualizarlo y descargarlo
+![](FotosReadme/perfilPaciente.png)
+
+## Vista Mis Turnos
+### En esta sección el Paciente podra ver los turnos que haya solicitado 
+![](FotosReadme/turnosPaciente.png)
+
+# VISTA ESPECIALISTA
+### Al iniciar sesión como Especialista contara con las siguientes opciones de interacción : *Mi Perfil - Mis Turnos - Mis Pacientes*
+
+## Vista Mis Turnos
+### En esta sección el Especialista podra ver los turnos que le fueron solicitados y cargar Historial Clinico a un Paciente
+![](FotosReadme/turnosEsp.png)
+
+## Vista Mis Pacientes
+### En esta sección el Especialista podra el Historial Clinico de un Paciente, siempre y cuando haya completado un turno con este último
+![](FotosReadme/misPacientes.png)
+
+## Vista Mi Perfil
+### En esta sección el Especialista podra ver su informacion personal y crear Turnos
+![](FotosReadme/miperfil-Esp.png)
 
 <details>
 
