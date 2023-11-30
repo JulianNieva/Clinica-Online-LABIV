@@ -9,11 +9,11 @@ export class DniPipe implements PipeTransform {
 
     if (!isNaN(dni) && dni.toString().length === 8) {
       const dniString = dni.toString();
-      const firstPart = dniString.slice(0, 2);
-      const secondPart = dniString.slice(2, 5);
-      const thirdPart = dniString.slice(5, 8);
+      const primeraParte = dniString.slice(0, 2);
+      const segundaParte = dniString.slice(2, 5);
+      const terceraParte = dniString.slice(5, 8);
 
-      return `${firstPart}.${secondPart}.${thirdPart}`;
+      return `${primeraParte}.${segundaParte}.${terceraParte}`;
     } else {
       return dni.toString();
     }

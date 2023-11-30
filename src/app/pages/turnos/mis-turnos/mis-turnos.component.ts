@@ -168,6 +168,7 @@ export class MisTurnosComponent implements OnInit {
   }
 
   aceptarTurno(turno: any) {
+    this.loading = true;
     turno.estado = 'aceptado';
     for (let i = 0; i < this.currentSpecialistTurnList.length; i++) {
       const turnosEspecialista = this.currentSpecialistTurnList[i];
@@ -181,8 +182,6 @@ export class MisTurnosComponent implements OnInit {
       turnosEspecialista.turnos[index] = turno;
       this.firestoreService.ActualizarListadoTurnos(turnosEspecialista);
     }
-
-    this.loading = true;
     setTimeout(() => {
       this.loading = false;
       this.vistaComentario = false;
@@ -191,7 +190,7 @@ export class MisTurnosComponent implements OnInit {
       this.confirmacionRechazo = false;
       this.confirmacionFinalizacion = false;
       this.notificationService.showSuccess("Turno aceptado exitosamente!","Mis Turnos")
-    }, 1000);
+    }, 3000);
   }
 
   cancelarTurno(turno: any) {
@@ -210,6 +209,7 @@ export class MisTurnosComponent implements OnInit {
         'Turnos'
       );
     } else {
+      this.loading = true;
       if (this.botonCancelar) {
         turno.estado = 'cancelado';
       } else {
@@ -228,15 +228,13 @@ export class MisTurnosComponent implements OnInit {
         turnosEspecialista.turnos[index] = turno;
         this.firestoreService.ActualizarListadoTurnos(turnosEspecialista);
       }
-
-      this.loading = true;
       setTimeout(() => {
         this.loading = false;
         this.turnoACancelar = {};
         this.cancelacionTurno = false;
         this.confirmacionFinalizacion = false;
         this.notificationService.showSuccess("El turno fue cancelado","Mis Turnos");
-      }, 1000);
+      }, 3000);
     }
   }
 
@@ -248,6 +246,7 @@ export class MisTurnosComponent implements OnInit {
   }
 
   confirmarFinalizacion(turno: any) {
+    this.loading = true;
     turno.estado = 'realizado';
     turno.comentario = this.comentarioFinalizacion;
     for (let i = 0; i < this.currentSpecialistTurnList.length; i++) {
@@ -263,7 +262,6 @@ export class MisTurnosComponent implements OnInit {
       this.firestoreService.ActualizarListadoTurnos(turnosEspecialista);
     }
 
-    this.loading = true;
     setTimeout(() => {
       this.loading = false;
       this.turnoACancelar = {};
@@ -271,7 +269,7 @@ export class MisTurnosComponent implements OnInit {
       this.confirmacionRechazo = false;
       this.confirmacionFinalizacion = false;
       this.notificationService.showSuccess("Turno aceptado exitosamente!","Mis Turnos")
-    }, 1000);
+    }, 3000);
   }
 
   calificarTurno(turno: any) {
@@ -288,6 +286,7 @@ export class MisTurnosComponent implements OnInit {
         'Mis Turnos'
       );
     } else {
+      this.loading = true;
       turno.comentarioPaciente = this.comentarioCalificacion;
       for (let i = 0; i < this.currentSpecialistTurnList.length; i++) {
         const turnosEspecialista = this.currentSpecialistTurnList[i];
@@ -301,15 +300,13 @@ export class MisTurnosComponent implements OnInit {
         turnosEspecialista.turnos[index] = turno;
         this.firestoreService.ActualizarListadoTurnos(turnosEspecialista);
       }
-
-      this.loading = true;
       setTimeout(() => {
         this.loading = false;
         this.turnoACalificar = {};
         this.vistaComentarioCalificacion = false;
         this.confirmacionFinalizacion = false;
         this.notificationService.showSuccess("Turno calificado exitosamente!","Mis Turnos")
-      }, 1000);
+      }, 3000);
     }
   }
 
@@ -329,6 +326,7 @@ export class MisTurnosComponent implements OnInit {
         'Turnos'
       );
     } else {
+      this.loading = true;
       if (this.botonCancelar) {
         turno.estado = 'cancelado';
       } else {
@@ -348,7 +346,6 @@ export class MisTurnosComponent implements OnInit {
         this.firestoreService.ActualizarListadoTurnos(turnosEspecialista);
       }
 
-      this.loading = true;
       setTimeout(() => {
         this.loading = false;
         this.turnoACancelar = {};
@@ -356,7 +353,7 @@ export class MisTurnosComponent implements OnInit {
         this.confirmacionRechazo = false;
         this.confirmacionFinalizacion = false;
         this.notificationService.showSuccess("El turno fue cancelado","Mis Turnos");
-      }, 1000);
+      }, 3000);
     }
   }
 
@@ -469,7 +466,6 @@ export class MisTurnosComponent implements OnInit {
         temperatura: this.formHistorial.getRawValue().temperatura,
         presion: this.formHistorial.getRawValue().presion,
       };
-      console.log("hola")
 
       let detalleAdicional: any = {};
       if (this.arrayClaveValorAdicionales.length == 1) {

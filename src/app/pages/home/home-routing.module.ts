@@ -10,7 +10,7 @@ import { seLogueoGuard } from 'src/app/guard/se-logueo.guard';
 const routes: Routes = [
   {
     path:"home",
-    component:WelcomeComponent
+    component:WelcomeComponent,
   },
   {
     path:'usuarios',

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { seLogueoGuard } from './guard/se-logueo.guard';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { animation } from '@angular/animations';
 
 const routes: Routes = [
   {
@@ -15,7 +17,7 @@ const routes: Routes = [
   },
   {
     path:"auth",
-    loadChildren:() => import('./pages/auth/auth.module').then(m => m.AuthModule)
+    loadChildren:() => import('./pages/auth/auth.module').then(m => m.AuthModule),
   },
   {
     path:"turnos",

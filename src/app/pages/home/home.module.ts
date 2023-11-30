@@ -8,7 +8,6 @@ import { ComponentsModule } from 'src/app/components/components.module';
 import { MiPerfilComponent } from './mi-perfil/mi-perfil.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PacientesComponent } from './pacientes/pacientes.component';
-import { InformesComponent } from './informes/informes.component';
 
 @NgModule({
   declarations: [
@@ -17,13 +16,12 @@ import { InformesComponent } from './informes/informes.component';
     SeccionUsuariosComponent,
     MiPerfilComponent,
     PacientesComponent,
-    InformesComponent
   ],
   imports: [
     CommonModule,
     ComponentsModule,
     FormsModule,
-    HomeRoutingModule
+    HomeRoutingModule,
   ]
 })
 export class HomeModule { }

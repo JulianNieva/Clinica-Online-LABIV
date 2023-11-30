@@ -66,7 +66,7 @@ export class PacientesComponent implements OnInit{
 
           this.historialClinicoDelEspecialista = this.historialesClinicos.filter(
             (h) => {
-              return h.especialista.id == user.id;
+              return h.especialista.id == this.usuario.id;
             }
           );
 
@@ -94,7 +94,7 @@ export class PacientesComponent implements OnInit{
       });
       setTimeout(() => {
         this.loading = false;
-      }, 1500);
+      }, 2000);
     });
   }
 
