@@ -43,7 +43,7 @@ administración de la misma".**
 # VISTA ADMINISTRADOR
 ### Al iniciar sesión como Administrador contara con las siguientes opciones de interacción : *Usuarios - Mi Perfil - Turnos - Solicitar Turno*
 
-![](FotosReadme/adminview.png)
+![](FotosReadme/AdminView.png)
 
 ## Vista Usuarios
 ### Desde aca podemos ver el listado de todos los usuarios. Se puede habilitar o deshabilitar un Especialista. Revisar el historial clinico de un Paciente, y descargar sus turnos. Tambien podemos registrar a un nuevo usuario siguiendo el criterio anterior, pero con la oportunidad de registrar a un administrador
