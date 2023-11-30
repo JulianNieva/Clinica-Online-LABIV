@@ -45,9 +45,9 @@ $font: "Montserrat", sans-serif;
   }
 }
 
-.carta-especialista,
+.carta-pacientes,
 .carta-turno {
-  height: 40vh;
+  height: 37vh;
   border: 2px solid black;
   background: #F1FAEE;
   box-shadow: 2px 2px 4px #000;
@@ -69,6 +69,27 @@ $font: "Montserrat", sans-serif;
   }
 }
 
+.marco-esp{
+  border: 2px solid white;
+  width: 20rem;
+  height: 10rem;
+}
+
+.carta-especialista{
+  width: 20rem;
+  padding: 20px;
+  height: 50vh;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  img{
+    margin-top: 2rem;
+    width: 5rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 .carta-especialista:hover {
   transition: background 0.5s;
   cursor: pointer;
@@ -86,18 +107,26 @@ $font: "Montserrat", sans-serif;
 }
 
 .especialidades {
-  font-size: 3rem;
-  color: #F18F01;
-  position: relative;
-  overflow: hidden;
-  height: 20vh;
-  width: 98%;
-  border: 2px solid #000;
-  background: #F1FAEE;
+  width: 500px;
+  height: 15vh;
+  border: 2px solid #fff;
   box-shadow: 2px 2px 4px #000;
   margin-left: 1rem;
-  margin-right: 1.5rem;
-  transition: 0.5s;
+  margin-right: 1rem;
+  transition: background 0.5s;
+  img {
+    margin-top: 1rem;
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #fff;
+    border: 2px solid #000;
+    box-shadow: 2px 2px 4px #000;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .especialidades:hover {
@@ -107,16 +136,17 @@ $font: "Montserrat", sans-serif;
 }
 
 .turnos-desk {
-  display: block;
-}
-
-.turnos-resp {
-  display: none;
+  display:flex;
+  flex-wrap: wrap;
 }
 
 .btn-turnos{
-  color: black;
+  width: 10rem;
+  height: 3rem;
+  margin: 3px; 
   background-color: #F18F01;
+  border-radius: 8px;
+  font-size: 16px;
   transition: 0.5s;
 }
 
@@ -126,6 +156,13 @@ $font: "Montserrat", sans-serif;
     color: #E63946;
   }
   transition: 0.5s;
+}
+
+.btn-regresar{
+  position: absolute;
+  z-index: 200;
+  top: 12%;
+  left: 5%;
 }
 
 .especialista-activo{
@@ -149,7 +186,7 @@ $font: "Montserrat", sans-serif;
   }
 
   .contenedor-especialistas {
-    background: #236c7d;
+    background: #4b898b;
     padding-top: 24rem;
   }
 
@@ -160,7 +197,7 @@ $font: "Montserrat", sans-serif;
   }
 
   .carta-especialista {
-    background: #236c7d;
+    background: #4b898b;
     margin-bottom: 2rem;
   }
 

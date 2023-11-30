@@ -24,6 +24,10 @@ export class SolicitarTurnoComponent implements OnInit{
   patientSelectionMenu: boolean = false;
   turnsSelectionMenu: boolean = false;
 
+  arrayEspecialistas:any[] = []
+  especialidadMenuSeleccion:boolean = true;
+  listadoEspecialidades:any[] = []
+
   currentSpecialistTurnList: any[] = [];
   turnosAMostrar: any[] = [];
   turnosDeUnDiaAMostrar: any[] = [];
@@ -61,6 +65,12 @@ export class SolicitarTurnoComponent implements OnInit{
               this.currentSpecialistTurnList = turnosEspecialista;
               this.loading = false;
             });
+            this.firestoreService.TraerEspecialidades().subscribe((esp) => {
+              if(esp)
+              {
+                this.listadoEspecialidades = esp
+              }
+            });
           } else {
             this.loading = false;
           }
@@ -71,20 +81,35 @@ export class SolicitarTurnoComponent implements OnInit{
   }
 
   MostrarEspecialista(esp: any) {
-    this.specialistSelectionMenu = false;
-    this.activeEspecialista = esp;
-    console.log(esp);
+    this.arrayEspecialistas = [];
+    this.especialidadMenuSeleccion = false;
+    this.speciality = esp;
+
+    for (let i = 0; i < this.especialistasList.length; i++) {
+      for (let j = 0; j < this.especialistasList[i].especialidad.length; j++) {
+        if(this.speciality.nombre == this.especialistasList[i].especialidad[j].nombre)
+        {
+          this.arrayEspecialistas.push(this.especialistasList[i]);
+        }
+      }
+    }
   }
 
   MostrarPaciente(paciente: any) {
     this.patientSelectionMenu = false;
     this.activePaciente = paciente;
-    console.log(paciente);
   }
 
-  showTurns(especialidad: any) {
+  VolverALasEspecialidades(){
+    this.especialidadMenuSeleccion = true;
+    this.patientSelectionMenu = false;
+    this.speciality = null;
+    this.turnsSelectionMenu = false;
+  }
+
+  showTurns(especialista: any) {
     this.turnsSelectionMenu = true;
-    this.speciality = especialidad;
+    this.activeEspecialista = especialista;
     this.loadFreeHours('');
     this.turnosAMostrar.forEach((t) => {
       this.diasAMostrar.push(t.fecha);
@@ -94,12 +119,10 @@ export class SolicitarTurnoComponent implements OnInit{
     this.diasAMostrar.forEach((d) => {
       for (let i = 0; i < this.diasAMostrar.length; i++) {
         const fecha = this.diasAMostrar[i];
-        if (
-          d.getMonth() === fecha.getMonth() &&
-          d.getDate() === fecha.getDate()
-        ) {
-          if (!aux.some((a) => {
-              return (d.getMonth() === a.getMonth() && d.getDate() === a.getDate());
+        if (d.getMonth() == fecha.getMonth() && d.getDate() == fecha.getDate()) {
+          if (
+            !aux.some((a) => {
+              return d.getMonth() == a.getMonth() && d.getDate() == a.getDate();
             })
           ) {
             aux.push(d);
@@ -107,7 +130,6 @@ export class SolicitarTurnoComponent implements OnInit{
         }
       }
     });
-
     aux.sort((a, b) => a - b);
     this.diasAMostrar = [...aux];
   }
@@ -137,7 +159,6 @@ export class SolicitarTurnoComponent implements OnInit{
         turnos15dias.push(turno);
       }
     }
-    console.log(turnos15dias);
     this.turnosAMostrar = [...turnos15dias];
   }
 

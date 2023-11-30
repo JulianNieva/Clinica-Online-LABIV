@@ -8,7 +8,15 @@ import { FormAltaAdministradorComponent } from './form-alta-administrador/form-a
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListaEspecialidadesComponent } from './lista-especialidades/lista-especialidades.component';
 import { InicioUsuariosComponent } from './inicio-usuarios/inicio-usuarios.component';
-
+import { BotonHoverDirective } from '../directives/boton-hover.directive';
+import { InputBusquedaDirective } from '../directives/input-busqueda.directive';
+import { RecaptchaModule,RecaptchaFormsModule } from 'ng-recaptcha';
+import { FechaActualPipe } from '../pipes/fecha-actual.pipe';
+import { HorarioTurnoPipe } from '../pipes/horario-turno.pipe';
+import { DiaTurnoPipe } from '../pipes/dia-turno.pipe';
+import { DniPipe } from '../pipes/dni.pipe';
+import { ComentarioPipe } from '../pipes/comentario.pipe';
+import { TarjetaHoverDirective } from '../directives/tarjeta-hover.directive';
 
 @NgModule({
   declarations: [
@@ -17,20 +25,38 @@ import { InicioUsuariosComponent } from './inicio-usuarios/inicio-usuarios.compo
     FormAltaEspecialistaComponent,
     FormAltaAdministradorComponent,
     ListaEspecialidadesComponent,
-    InicioUsuariosComponent
+    InicioUsuariosComponent,
+    BotonHoverDirective,
+    InputBusquedaDirective,
+    TarjetaHoverDirective,
+    FechaActualPipe,
+    HorarioTurnoPipe,
+    DiaTurnoPipe,
+    DniPipe,
+    ComentarioPipe
   ],
   imports: [
     CommonModule,
     ComponentsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    RecaptchaFormsModule,
+    RecaptchaModule
   ],
   exports:[
     NavbarComponent,
     FormAltaEspecialistaComponent,
     FormAltaPacienteComponent,
     FormAltaAdministradorComponent,
-    InicioUsuariosComponent
+    InicioUsuariosComponent,
+    BotonHoverDirective,
+    TarjetaHoverDirective,
+    InputBusquedaDirective,
+    DiaTurnoPipe,
+    HorarioTurnoPipe,
+    FechaActualPipe,
+    DniPipe,
+    ComentarioPipe
   ]
 })
 export class ComponentsModule { }

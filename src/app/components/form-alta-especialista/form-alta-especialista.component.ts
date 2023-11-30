@@ -36,14 +36,12 @@ ngOnInit() {
       foto:['',Validators.required],
       captcha:['',Validators.required]
     });
-
-    this.captcha = this.GenerarCaptcha(6)
   }
 
   async Registrar() {
     if(this.formEspecialista.valid && this.imagenes.length == 1)
     {
-      if(this.captcha.toLocaleLowerCase().trim() == this.formEspecialista.getRawValue().captcha.toLocaleLowerCase().trim())
+      if(this.captcha != null || '')
       {
         this.loading = true
 
@@ -70,7 +68,7 @@ ngOnInit() {
       }
       else
       {
-        this.swal.MostrarError('ERROR','¡El captcha es incorrecto!');
+        this.swal.MostrarError('ERROR','!Debe completar el Captcha!');
       }
     }
     else {
@@ -102,16 +100,9 @@ ngOnInit() {
     this.especialidad = $event;
   }
 
-  GenerarCaptcha(num:number) :string
+  CapchaResuelto($event:any)
   {
-    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let captchaRetorno = ' ';
-    const cantCaracteres = caracteres.length;
-    for (let i = 0; i < num; i++) {
-      captchaRetorno += caracteres.charAt(
-        Math.floor(Math.random() * cantCaracteres)
-      );
-    }
-    return captchaRetorno;
+    this.captcha = $event
   }
+
 }

@@ -35,14 +35,12 @@ export class FormAltaPacienteComponent {
       foto:['',Validators.required],
       captcha:['',Validators.required]
     });
-
-    this.captcha = this.GenerarCaptcha(6)
   }
 
   async Registrar() {
     if(this.formPaciente.valid && this.imagenes.length == 2)
     {
-      if(this.captcha.toLocaleLowerCase().trim() == this.formPaciente.getRawValue().captcha.toLocaleLowerCase().trim())
+      if(this.captcha != null || '')
       {
         this.loading = true
 
@@ -69,7 +67,7 @@ export class FormAltaPacienteComponent {
       }
       else
       {
-        this.swal.MostrarError('ERROR','¡El captcha es incorrecto!');
+        this.swal.MostrarError('ERROR','!Debe completar el Captcha!');
       }
     }
     else {
@@ -100,16 +98,8 @@ export class FormAltaPacienteComponent {
     this.imagenes = [];
   }
 
-  GenerarCaptcha(num:number) :string
+  CapchaResuelto($event:any)
   {
-    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let captchaRetorno = ' ';
-    const cantCaracteres = caracteres.length;
-    for (let i = 0; i < num; i++) {
-      captchaRetorno += caracteres.charAt(
-        Math.floor(Math.random() * cantCaracteres)
-      );
-    }
-    return captchaRetorno;
+    this.captcha = $event
   }
 }

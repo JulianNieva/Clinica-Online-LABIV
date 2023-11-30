@@ -47,7 +47,6 @@ export class TurnosComponent {
         }
       }
       this.turnosFiltrados = [...this.turnList];
-      // console.log(this.turnList);
     });
     this.firestoreService.TraerUsuarios().subscribe((users) => {
       this.loading = false;
@@ -55,7 +54,6 @@ export class TurnosComponent {
         this.listaDeEspecialistas = users.filter(
           (u:any) => u.perfil == 'Especialista' && u.aprobado
         );
-        console.log(this.listaDeEspecialistas);
       }
     });
   }
@@ -63,7 +61,6 @@ export class TurnosComponent {
   cancelarTurno(turno: any) {
     this.turnoACancelar = { ...turno };
     this.cancelacionTurno = true;
-    console.log(turno);
   }
 
   confirmarCancelacion(turno: any) {
